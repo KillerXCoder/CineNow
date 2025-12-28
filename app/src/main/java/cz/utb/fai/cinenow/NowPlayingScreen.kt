@@ -90,14 +90,11 @@ fun MovieCard(movie: Movie, onClick: () -> Unit) {
                     text = "Hodnotenie: %.1f".format(movie.voteAverage),
                     style = MaterialTheme.typography.bodyMedium
                 )
-                if (movie.genres.isNotEmpty()) {
-                    Text(
-                        text = movie.genres.joinToString(", "),
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
+                Text(
+                    text = "Premiéra: %s".format(movie.releaseDate),
+                    style = MaterialTheme.typography.bodySmall,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
         }
     }

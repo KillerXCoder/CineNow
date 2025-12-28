@@ -71,16 +71,22 @@ fun MovieDetailScreen(movie: Movie, onBack: () -> Unit) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text("Hodnotenie: %.1f".format(movie.voteAverage))
+            Text("Premiéra: %s".format(movie.releaseDate))
             if (movie.genres.isNotEmpty()) {
-                Text(movie.genres.joinToString(", "))
+                Text("Žánre: %s".format(movie.genres.joinToString(", ")))
             }
-
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = movie.overview,
-                style = MaterialTheme.typography.bodyLarge
-            )
+            if (movie.overview.isNotEmpty()) {
+                Text(
+                    text = "Obsah:",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Text(
+                    text = movie.overview,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
         }
     }
 }

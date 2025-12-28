@@ -31,7 +31,6 @@ class Repository(
             Log.e("Repository", "Could not get data", e)
         }
 
-        // After fetching or if there was an error, try to return from cache one last time
         val finalMovies = movieDao.getAllMovies().map { it.asDomainModel() }
         return NowPlayingDomain(page = 1, totalPages = 1, results = finalMovies)
     }
