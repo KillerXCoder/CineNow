@@ -70,7 +70,11 @@ fun MovieDetailScreen(movie: Movie, onBack: () -> Unit) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text("Hodnotenie: %.1f".format(movie.voteAverage))
+            if (movie.voteAverage != 0.0) {
+                Text("Hodnotenie: %.1f/10".format(movie.voteAverage))
+            } else {
+                Text("Hodnotenie: neznáme")
+            }
             Text("Premiéra: %s".format(movie.releaseDate))
             if (movie.genres.isNotEmpty()) {
                 Text("Žánre: %s".format(movie.genres.joinToString(", ")))

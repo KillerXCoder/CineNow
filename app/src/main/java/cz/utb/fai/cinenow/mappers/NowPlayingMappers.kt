@@ -5,6 +5,9 @@ import cz.utb.fai.cinenow.database.MovieEntity
 import cz.utb.fai.cinenow.domain.Movie
 import cz.utb.fai.cinenow.domain.NowPlayingDomain
 import cz.utb.fai.cinenow.api.Movie as ApiMovie
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 
 fun NowPlayingNetwork.asDomainModel(): NowPlayingDomain {
@@ -16,11 +19,17 @@ fun NowPlayingNetwork.asDomainModel(): NowPlayingDomain {
 }
 
 fun ApiMovie.asDomainModel(): Movie {
+    val formattedDate = try {
+        val date = LocalDate.parse(this.release_date, DateTimeFormatter.ISO_LOCAL_DATE)
+        date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+    } catch (_: DateTimeParseException) {
+        this.release_date
+    }
     return Movie(
         id = this.id,
         overview = this.overview,
         posterPath = this.poster_path ?: "",
-        releaseDate = this.release_date,
+        releaseDate = formattedDate,
         title = this.title,
         voteAverage = this.vote_average,
         genreIds = this.genre_ids
@@ -49,6 +58,6 @@ fun Movie.asDatabaseModel(genres: List<String>): MovieEntity {
         releaseDate = this.releaseDate,
         title = this.title,
         voteAverage = this.voteAverage,
-        genres = genres // Use the passed genre names
+        genres = genres
     )
 }

@@ -86,13 +86,21 @@ fun MovieCard(movie: Movie, onClick: () -> Unit) {
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(
-                    text = "Hodnotenie: %.1f".format(movie.voteAverage),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                if (movie.voteAverage != 0.0){
+                    Text(
+                        text = "Hodnotenie: %.1f/10".format(movie.voteAverage),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+                else {
+                    Text(
+                        text = "Hodnotenie: neznáme",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
                 Text(
                     text = "Premiéra: %s".format(movie.releaseDate),
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyMedium,
                     overflow = TextOverflow.Ellipsis
                 )
             }
